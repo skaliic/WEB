@@ -1,0 +1,336 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #1a1a1a;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+nav a:hover {
+    background-color: #1e90ff;
+}
+
+.nadpis {
+    display: flex;               
+    justify-content: center;     
+    align-items: center;        
+    width: 100%;                 
+    height: 150px;               
+    background-color: #ffffff;
+}
+
+.nadpis h1 {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 0; 
+    color: #000000;
+}
+
+.obrazky {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.fotkaVlevo img, .fotkaVpravo img {
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.uvod {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.uvod h2 {
+    font-size: 36px;
+    color: #1a1a1a ;
+    margin-bottom: 20px;
+}
+
+.uvod p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+}
+
+
+   
+   
+
+.novinky-sekce {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f4f4f4; 
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 100px; 
+}
+
+
+
+.novinky-sekce h2 {
+    text-align: center;
+    color: #1a1a1a;
+    font-size: 32px;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #1e90ff; 
+    display: inline-block;
+    padding-bottom: 10px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.novinky-kontejner {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 60px; 
+}
+
+.novinka {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex: 1;
+    min-width: 250px;
+    transition: transform 0.3s;
+}
+
+.novinka:hover {
+    transform: translateY(-5px);
+}
+
+.novinka h3 {
+    margin-top: 0;
+    color: #1e90ff;
+}
+
+.datum {
+    font-size: 12px;
+    color: #888;
+    font-style: italic;
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+
+
+h2.tdf-nadpis {
+    border-bottom: 4px solid #1e90ff; 
+    margin-top: 20px;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.tdf-popis {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
+
+
+.tabulka-obal {
+    width: 100%; 
+}
+
+
+.novinky-sekce table {
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.novinky-sekce th, .novinky-sekce td {
+    padding: 20px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 18px;
+}
+
+.novinky-sekce th {
+    background-color: #1e90ff; 
+    color: #1a1a1a;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+}
+
+
+.novinky-sekce tbody tr {
+    transition: background-color 0.2s;
+}
+
+.novinky-sekce tbody tr:hover {
+    background-color: #fffde7; 
+    transform: scale(1.01);
+}
+
+
+.novinky-sekce td:first-child { 
+    font-weight: bold;
+    color: #1a1a1a;
+    width: 80px;
+    text-align: center;
+}
+
+.novinky-sekce td:nth-child(2) { 
+    font-weight: bold;
+    color: #1e90ff; 
+    font-size: 20px;
+}
+
+
+
+.reference-sekce {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f4f4f4;
+    border-radius: 15px;
+    margin-bottom: 100px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.reference-sekce h2 {
+    text-align: center;
+    color: #1a1a1a;
+    font-size: 36px;
+    margin-bottom: 40px;
+    border-bottom: 4px solid #1e90ff;
+    display: inline-block;
+    padding-bottom: 10px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.reference-kontejner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.reference-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.reference-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+
+.reference-box.trebon {
+    background-color: #f5e6d3;
+}
+
+.reference-box.beskydy {
+    background-color: #e8d4c8;
+}
+
+.reference-box.greenways {
+    background-color: #d4ccc4;
+}
+
+.reference-box.labe {
+    background-color: #c8beb8;
+}
+
+.reference-box.sumava {
+    background-color: #bdb3ad;
+}
+
+
+.reference-obsah {
+    flex: 1;
+    padding-right: 30px;
+}
+
+.reference-obsah h3 {
+    font-size: 24px;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+    margin-top: 0;
+    font-weight: bold;
+}
+
+.reference-obsah p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #333;
+    margin: 0;
+}
+
+
+.hodnoceni {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1a1a1a;
+    min-width: 100px;
+    text-align: center;
+    background-color: rgba(255,255,255,0.5);
+    padding: 15px 20px;
+    border-radius: 8px;
+}
+
+
+@media (max-width: 768px) {
+    .reference-box {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .reference-obsah {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .hodnoceni {
+        width: 100%;
+    }
+}
