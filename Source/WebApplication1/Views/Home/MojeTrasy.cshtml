@@ -12,10 +12,10 @@
     </header>
 
     <nav>
-        <a href="index.cshtml">Domů</a>
-        <a href="Omne.cshtml">O mně</a>
-        <a href="MojeTrasy.cshtml">Moje Trasy</a>
-        <a href="Reference.cshtml">Reference</a>   
+        <a asp-controller="Home" asp-action="Index">Domů</a>
+        <a asp-controller="Home" asp-action="Omne">O mně</a>
+        <a asp-controller="Home" asp-action="MojeTrasy" class="active">Moje Trasy</a>
+        <a asp-controller="Home" asp-action="Reference">Reference</a>
     </nav>
 
     <main class="uvod">
