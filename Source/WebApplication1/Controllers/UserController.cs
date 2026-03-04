@@ -3,7 +3,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class AccountController : Controller
+    public class UserController : Controller
     {
         private static List<RegisterViewModel> _users = new();
 
