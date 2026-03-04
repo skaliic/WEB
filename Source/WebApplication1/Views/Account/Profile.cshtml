@@ -1,0 +1,16 @@
+﻿@model WebApplication1.Models.ProfileViewModel
+@{
+    ViewData["Title"] = "Profil";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+                <p class="card-text text-muted">@Model.Email</p>
+                <a asp-action="Logout" class="btn btn-outline-danger btn-sm">Odhlásit se</a>
+            </div>
+        </div>
+    </div>
+</div>
