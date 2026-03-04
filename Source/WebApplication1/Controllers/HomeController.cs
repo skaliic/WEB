@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult NovaStranka()
+        public IActionResult Login()
         {
             return View();
         }

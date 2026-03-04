@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/reference.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header class="nadpis">
-        <h1>CYKLISTIKA</h1>
+        <h1>@(ViewData["Title"]?.ToString()?.ToUpper() ?? "CYKLISTIKA")</h1>
     </header>
 
     <nav>
@@ -20,26 +21,19 @@
         <a asp-controller="Home" asp-action="Omne">O mně</a>
         <a asp-controller="Home" asp-action="MojeTrasy">Moje Trasy</a>
         <a asp-controller="Home" asp-action="Reference">Reference</a>
-        <a asp-controller="Home" asp-action="NovaStranka">Nová Stránka</a>
+        
+        
         @if (Context.Session.GetString("UserEmail") != null)
         {
             <a asp-controller="Account" asp-action="Profile">Profil</a>
         }
         else
         {
-            <a asp-controller="Account" asp-action="Login">Login</a>
+            <a asp-controller="Account" asp-action="Login">Přihlásit se</a>
         }
     </nav>
 
-    <div>
-        @RenderBody()
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Cyklistika
-        </div>
-    </footer>
+    @RenderBody()
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

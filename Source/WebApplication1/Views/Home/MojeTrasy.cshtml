@@ -1,29 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moje trasy - Můj Web</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header class="nadpis">
-        <h1>MOJE TRASY</h1>
-    </header>
+﻿@{
+    ViewData["Title"] = "Moje Trasy";
+}
 
-    <nav>
-        <a asp-controller="Home" asp-action="Index">Domů</a>
-        <a asp-controller="Home" asp-action="Omne">O mně</a>
-        <a asp-controller="Home" asp-action="MojeTrasy" class="active">Moje Trasy</a>
-        <a asp-controller="Home" asp-action="Reference">Reference</a>
-        <a asp-controller="Home" asp-action="NovaStranka">Login</a>
-    </nav>
-
-    <main class="uvod">
-        <h2>Trasy se připravují.</h2>
-        <p>Právě mapuji ty nejlepší cyklistické trasy v okolí Trutnova a Hostinného. Brzy se zde objeví mapy, GPX soubory a fotky z cest.</p>
-        <p>🚲 Do té doby prosím o trpělivost!</p>
-    </main>
-
-</body>
-</html>
+<main class="uvod">
+    <h2>Trasy se připravují.</h2>
+    <p>Právě mapuji ty nejlepší cyklistické trasy v okolí Trutnova a Hostinného. Brzy se zde objeví mapy, GPX soubory a fotky z cest.</p>
+    <p>🚲 Do té doby prosím o trpělivost!</p>
+</main>
