@@ -1,15 +1,75 @@
 ﻿@model WebApplication1.Models.ProfileViewModel
 @{
     ViewData["Title"] = "Profil";
+
+    var initials = string.IsNullOrWhiteSpace(Model.Name)
+        ? "U"
+        : Model.Name.Substring(0, 1).ToUpper();
 }
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">@Model.Name</h5>
-                <p class="card-text text-muted">@Model.Email</p>
-                <a asp-action="Logout" class="btn btn-outline-danger btn-sm">Odhlásit se</a>
+<div class="container py-4">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4">
+                    <div class="d-flex flex-column flex-md-row align-items-center align-items-md-start gap-4">
+
+                        <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center"
+                             style="width: 100px; height: 100px; font-size: 2rem; font-weight: bold;">
+                            @initials
+                        </div>
+
+                        <div class="flex-grow-1 text-center text-md-start">
+                            <h2 class="mb-1">@Model.Name</h2>
+                            <p class="text-muted mb-3">@Model.Email</p>
+
+                            <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start">
+                                <span class="badge bg-light text-dark border px-3 py-2">Aktivní účet</span>
+                                <span class="badge bg-light text-dark border px-3 py-2">Uživatel systému</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <h6 class="mb-2">Jméno</h6>
+                                <p class="mb-0 text-muted">@Model.Name</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <h6 class="mb-2">E-mail</h6>
+                                <p class="mb-0 text-muted">@Model.Email</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4">
+                    <h5 class="mb-3">Akce</h5>
+
+                    <a asp-action="EditProfile" class="btn btn-primary w-100 mb-2">
+                        Upravit profil
+                    </a>
+
+                    <a asp-action="ChangePassword" class="btn btn-outline-secondary w-100 mb-2">
+                        Změnit heslo
+                    </a>
+
+                    <form asp-action="Logout" method="post">
+                        <button type="submit" class="btn btn-outline-danger w-100">
+                            Odhlásit se
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
