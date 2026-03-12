@@ -1,78 +1,98 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.Data;
 using WebApplication1.Models;
-using System.Text.Json;
 
 namespace WebApplication1.Controllers
 {
     public class UserController : Controller
     {
-        private static string _filePath = "users.json";
+        private readonly ApplicationDbContext _context;
 
-        private List<RegisterViewModel> LoadUsers()
+        public UserController(ApplicationDbContext context)
         {
-            if (!System.IO.File.Exists(_filePath)) return new List<RegisterViewModel>();
-            var json = System.IO.File.ReadAllText(_filePath);
-            return JsonSerializer.Deserialize<List<RegisterViewModel>>(json) ?? new List<RegisterViewModel>();
-        }
-
-        private void SaveUsers(List<RegisterViewModel> users)
-        {
-            var json = JsonSerializer.Serialize(users);
-            System.IO.File.WriteAllText(_filePath, json);
+            _context = context;
         }
 
         [HttpGet]
-        public IActionResult Register() => View();
+        public IActionResult Register()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
 
-            var users = LoadUsers();
-            if (users.Any(u => u.Email == model.Email))
+            bool exists = await _context.Users.AnyAsync(u => u.Email == model.Email);
+
+            if (exists)
             {
-                ModelState.AddModelError("Email", "Tento email je již registrován.");
+                ModelState.AddModelError("", "Uživatel s tímto emailem už existuje.");
                 return View(model);
             }
 
-            users.Add(model);
-            SaveUsers(users);
+            User user = new User
+            {
+                Name = model.Name,
+                Email = model.Email,
+                Password = model.Password
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("Login");
         }
 
         [HttpGet]
-        public IActionResult Login() => View();
+        public IActionResult Login()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
 
-            var users = LoadUsers();
-            var user = users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+
             if (user == null)
             {
                 ModelState.AddModelError("", "Špatný email nebo heslo.");
                 return View(model);
             }
 
-            HttpContext.Session.SetString("UserEmail", user.Email);
+            HttpContext.Session.SetString("UserId", user.Id.ToString());
             HttpContext.Session.SetString("UserName", user.Name);
+            HttpContext.Session.SetString("UserEmail", user.Email);
+
             return RedirectToAction("Profile");
         }
 
-        [HttpGet]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            var email = HttpContext.Session.GetString("UserEmail");
-            if (email == null) return RedirectToAction("Login");
+            var userId = HttpContext.Session.GetString("UserId");
 
-            var model = new ProfileViewModel
+            if (string.IsNullOrEmpty(userId))
+                return RedirectToAction("Login");
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+
+            if (user == null)
+                return RedirectToAction("Login");
+
+            ProfileViewModel model = new ProfileViewModel
             {
-                Email = email,
-                Name = HttpContext.Session.GetString("UserName") ?? ""
+                Name = user.Name,
+                Email = user.Email
             };
+
             return View(model);
         }
 
