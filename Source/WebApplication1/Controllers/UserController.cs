@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 using WebApplication1.Models;
@@ -8,6 +9,7 @@ namespace WebApplication1.Controllers
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly PasswordHasher<User> _hasher = new PasswordHasher<User>();
 
         public UserController(ApplicationDbContext context)
         {
@@ -27,7 +29,6 @@ namespace WebApplication1.Controllers
                 return View(model);
 
             bool exists = await _context.Users.AnyAsync(u => u.Email == model.Email);
-
             if (exists)
             {
                 ModelState.AddModelError("", "Uživatel s tímto emailem už existuje.");
@@ -38,12 +39,14 @@ namespace WebApplication1.Controllers
             {
                 Name = model.Name,
                 Email = model.Email,
-                Password = model.Password
+                Password = "" // prázdný, nepoužíváme
             };
+
+            // 👇 zahashuj heslo
+            user.PasswordHash = _hasher.HashPassword(user, model.Password);
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-
             return RedirectToAction("Login");
         }
 
@@ -59,10 +62,19 @@ namespace WebApplication1.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            // 👇 hledáme jen podle emailu, heslo ověříme zvlášť
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                .FirstOrDefaultAsync(u => u.Email == model.Email);
 
             if (user == null)
+            {
+                ModelState.AddModelError("", "Špatný email nebo heslo.");
+                return View(model);
+            }
+
+            // 👇 ověř heslo oproti hashi
+            var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
+            if (result == PasswordVerificationResult.Failed)
             {
                 ModelState.AddModelError("", "Špatný email nebo heslo.");
                 return View(model);
@@ -71,19 +83,16 @@ namespace WebApplication1.Controllers
             HttpContext.Session.SetString("UserId", user.Id.ToString());
             HttpContext.Session.SetString("UserName", user.Name);
             HttpContext.Session.SetString("UserEmail", user.Email);
-
             return RedirectToAction("Profile");
         }
 
         public async Task<IActionResult> Profile()
         {
             var userId = HttpContext.Session.GetString("UserId");
-
             if (string.IsNullOrEmpty(userId))
                 return RedirectToAction("Login");
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-
             if (user == null)
                 return RedirectToAction("Login");
 
@@ -92,7 +101,6 @@ namespace WebApplication1.Controllers
                 Name = user.Name,
                 Email = user.Email
             };
-
             return View(model);
         }
 
