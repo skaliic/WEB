@@ -11,5 +11,6 @@ namespace WebApplication1.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<RideEntry> RideEntries { get; set; } // ← přidej tento řádek
     }
 }

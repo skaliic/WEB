@@ -18,7 +18,7 @@
     <nav>
         <a asp-controller="Home" asp-action="Index">Domů</a>
         <a asp-controller="Home" asp-action="Omne">O mně</a>
-        <a asp-controller="Home" asp-action="MojeTrasy">Moje Trasy</a>
+        <a asp-controller="MojeTrasy" asp-action="Index">Moje Trasy</a>
         <a asp-controller="Home" asp-action="Reference">Reference</a>
 
         @if (Context.Session.GetString("UserEmail") != null)

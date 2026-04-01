@@ -1,5 +1,43 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<WebApplication1.Models.RideEntry>
 @{
+    ViewData["Title"] = "Moje Trasy";
 }
+
+<div class="trasy-container">
+    <a asp-controller="MojeTrasy" asp-action="Pridat" class="btn-pridat">
+        + Přidat novou jízdu
+    </a>
+
+    @if (!Model.Any())
+    {
+        <p class="zadne-zaznamy">Zatím žádné záznamy. Přidej svoji první jízdu!</p>
+    }
+    else
+    {
+        @foreach (var jizda in Model)
+        {
+            <div class="jizda-karta">
+                <div class="jizda-header">
+                    <h3>@jizda.NazevTrasy</h3>
+                    <span class="datum">@jizda.Datum.ToString("dd.MM.yyyy")</span>
+                </div>
+                <div class="jizda-stats">
+                    <span>🚴 @jizda.Vzdalenost km</span>
+                    <span>⏱ @jizda.CasHodiny h @jizda.CasMinuty min</span>
+                    <span>⛰ @jizda.Prevyseni m</span>
+                </div>
+                @if (!string.IsNullOrEmpty(jizda.Poznamka))
+                {
+                    <p class="poznamka">@jizda.Poznamka</p>
+                }
+                <form asp-controller="MojeTrasy" asp-action="Smazat" method="post">
+                    <input type="hidden" name="id" value="@jizda.Id" />
+                    <button type="submit" class="btn-smazat"
+                            onclick="return confirm('Opravdu smazat?')">
+                        Smazat
+                    </button>
+                </form>
+            </div>
+        }
+    }
+</div>

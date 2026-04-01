@@ -1,5 +1,43 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WebApplication1.Models.RideEntry
 @{
+    ViewData["Title"] = "Přidat jízdu";
 }
+
+<div class="form-container">
+    <h2>Nová jízda</h2>
+    <form asp-action="Pridat" method="post">
+        <div class="form-group">
+            <label>Název trasy</label>
+            <input asp-for="NazevTrasy" class="form-control" placeholder="např. Prokopské údolí" />
+            <span asp-validation-for="NazevTrasy" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Vzdálenost (km)</label>
+            <input asp-for="Vzdalenost" type="number" step="0.1" class="form-control" />
+            <span asp-validation-for="Vzdalenost" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Čas</label>
+            <div style="display:flex; gap:10px;">
+                <div>
+                    <input asp-for="CasHodiny" type="number" min="0" class="form-control" placeholder="Hodiny" />
+                    <small>hodin</small>
+                </div>
+                <div>
+                    <input asp-for="CasMinuty" type="number" min="0" max="59" class="form-control" placeholder="Minuty" />
+                    <small>minut</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Převýšení (m)</label>
+            <input asp-for="Prevyseni" type="number" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Poznámka</label>
+            <textarea asp-for="Poznamka" class="form-control" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Uložit jízdu</button>
+        <a asp-action="Index" class="btn-zpet">Zpět</a>
+    </form>
+</div>
