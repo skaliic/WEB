@@ -11,6 +11,6 @@ namespace WebApplication1.Models
         [Required]
         public string Password { get; set; } = "";
 
-        public string PasswordHash { get; set; } = ""; // přidej tento řádek
+        public string PasswordHash { get; set; } = ""; 
     }
 }
